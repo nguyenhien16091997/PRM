@@ -1,0 +1,37 @@
+span.glyphicon.glyphicon-trash{
+	color: red;
+}
+
+span.glyphicon.glyphicon-pencil{
+	color: green;
+}
+
+span.glyphicon.glyphicon-download{
+	color: pink;
+}
+
+span.glyphicon.glyphicon-eye-open{
+	color: #E4C596;
+}
+
+table tr, td {
+	text-align:center;
+}
+
+.data-model-index, .data-model-view, .m-list-timeline__text{
+    overflow: auto;
+}
+.nameE{
+	width: 120px !important;
+	margin-right: 2px
+}
+.valueE{
+	width: 50px !important;
+	margin-right: 2px
+}
+.lapaceE{
+	width: 70px !important;
+
+}
+
+.
