@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 [
                                     'header'   => 'Action',
                                     'class'    => 'yii\grid\ActionColumn',
-                                    'template' => '{view}  {update}  {delete}  {download}',
+                                    'template' => '{view} {delete}  {download}',
                                     'buttons'  => [
                                           'download' => function ($url, $data) {     
                                                 return Html::a(
@@ -68,7 +68,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'buttons'  => [
                                           'predictive' => function ($url, $data) {                       
                                                 return Html::tag('span', Html::encode(''), [
-                                                    'class'=>'glyphicon glyphicon-arrow-right show_result',       
+                                                    'class'=>'glyphicon glyphicon-arrow-right show_result',
+                                                    'id'=>'show_result_'.$data->id,       
                                                     'onClick'=>'show('.$data->id.')'                                             
                                                 ]);                             
                                             }
@@ -87,8 +88,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="m-portlet__head">
                     <div class="m-portlet__head-caption">
                         <div class="m-portlet__head-title">                            
-                            <h3 class="m-portlet__head-text">
-                                <?php if(isset($xls_data)){echo count($xls_data)-1;}?> Result 
+                            <h3 class="m-portlet__head-text" id ="count_result">
+                                 
                             </h3>
                         </div>
                     </div>                                       
@@ -112,7 +113,12 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 <script type="text/javascript">
+    var k = -1;
+    showResult(null);
     function show(key){
+        $('#show_result_'+key).addClass("show_result_last");
+        $('#show_result_'+k).removeClass("show_result_last");
+        k=key;
         $.ajax({
             type: 'POST',
             url: '<?php echo Yii::$app->urlManager->createAbsoluteUrl('data-model/getxls'); ?>',
@@ -128,7 +134,18 @@ $this->params['breadcrumbs'][] = $this->title;
     }
 
      function showResult(xls_data){
-        $("#list-preditive").empty();
+        if(xls_data == null){
+            $('#count_result').empty();
+            $("#list-preditive").empty();
+            $( "#list-preditive" ).append('please chose to show result');
+            $('#count_result').append('Result');
+            return
+        }
+        else{
+            $("#list-preditive").empty();
+            $('#count_result').empty();
+        }
+        
         for (var item in xls_data){
             x = xls_data[item][1];
             $( "#list-preditive" ).append( ''
@@ -144,7 +161,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     +'<span class="m-list-timeline__time lapaceE">'+x.D +' %'
                     +'</span>'
                 +'</div>' );
-        }
         
+        }
+        $('#count_result').append(xls_data.length-1 +' Result');
     }
 </script>
