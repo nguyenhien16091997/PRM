@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="data-model-index">                                           
 
                         <?= GridView::widget([
+                            'id' => 'selectRow',
                             'dataProvider' => $dataProvider,
                             'columns' => [
                                 [
@@ -55,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                           'download' => function ($url, $data) {     
                                                 return Html::a(
                                                     '<span class="glyphicon glyphicon-download"></span>',
-                                                    Url::to(['test-case/downloads','id'=>$data->id]),
+                                                    Url::to(['data-model/getData','id'=>$data->id]),
                                                     ['title' => Yii::t('yii', 'Download')]
                                                 );                                
                                             }
@@ -65,15 +66,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'class'    => 'yii\grid\ActionColumn',
                                     'template' => '{predictive}',
                                     'buttons'  => [
-                                          'predictive' => function ($url, $data) {     
-                                                /*return Html::span(
-                                                    '<span id="show_result" class="glyphicon glyphicon-arrow-right"></span>',
-                                                    Url::to(['/data-model/API','id'=>$data->id]),
-                                                    ['title' => Yii::t('yii', 'Predictive')]
-                                                ); */  
+                                          'predictive' => function ($url, $data) {                       
                                                 return Html::tag('span', Html::encode(''), [
-                                                    'class'=>'glyphicon glyphicon-arrow-right',
-                                                    'id'=>'show_result'
+                                                    'class'=>'glyphicon glyphicon-arrow-right show_result',       
+                                                    'onClick'=>'show('.$data->id.')'                                             
                                                 ]);                             
                                             }
                                         ]
@@ -102,32 +98,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="tab-pane active" id="m_widget4_tab1_content">
                             <div class="m-scrollable" data-scrollable="true" data-max-height="400" style=" overflow: hidden;">
                                 <div class="m-list-timeline m-list-timeline--skin-light">
-                                    <div class="m-list-timeline__items">
-                                        <?php                                           
-                                            if(isset($xls_data)){   foreach ($xls_data as $item) {
-                                                echo ('
-                                                <div class="m-list-timeline__item">
-                                                    <span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
-                                                    <span class="m-list-timeline__text nameE">'.
-                                                        $item['A'].'
-                                                    </span>
-                                                    <span class="m-list-timeline__text valueE">'.
-                                                        $item['B'].'
-                                                    </span>
-                                                    <span class="m-list-timeline__text">'.
-                                                        $item['C'].'
-                                                    </span>
-                                                    <span class="m-list-timeline__time lapaceE">'.
-                                                        $item['D'] .' %
-                                                    </span>
-                                                </div>');
-                                            }}  
-                                            else{
-                                                echo 'No results found.';
-                                            }                                         
-                                        ?>
-                                       
-                                                                        
+                                    <div class="m-list-timeline__items" id="list-preditive">
+                                                                                                      
                                     </div>
                                 </div>
                             </div>
@@ -140,20 +112,39 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#show_result').on('click', function(){          
-            alert('hello');   
-            // $.ajax({
-            //     type: 'GET',
-            //     url: '<?php echo Yii::$app->urlManager->createAbsoluteUrl('user/deleteall'); ?>',
-            //     data : {'id' : key},
-            //     success:function(data){
-            //         location.reload();
-            //     },
-            //     error: function(data) {
-            //         alert("Error occured. Please try again.");
-            //     }
-            // });
+    function show(key){
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo Yii::$app->urlManager->createAbsoluteUrl('data-model/getxls'); ?>',
+            data : {'id' : key},
+            success:function(data){                        
+                $xls_data=JSON.parse(data);
+                showResult(Object.entries($xls_data));
+            },
+            error: function(data) {                        
+                alert("Error occured. Please try again.");
+            }
         });
-    });
+    }
+
+     function showResult(xls_data){
+        $("#list-preditive").empty();
+        for (var item in xls_data){
+            x = xls_data[item][1];
+            $( "#list-preditive" ).append( ''
+                +'<div class="m-list-timeline__item">'
+                    +'<span class="m-list-timeline__badge m-list-timeline__badge--success"></span>'
+                    +'<span class="m-list-timeline__text nameE">'+x.A+''
+                    +'</span>'
+                    +'<span class="m-list-timeline__text valueE">'
+                        +x.B+''
+                    +'</span>'
+                    +'<span class="m-list-timeline__text">'+x.C+''
+                    +'</span>'
+                    +'<span class="m-list-timeline__time lapaceE">'+x.D +' %'
+                    +'</span>'
+                +'</div>' );
+        }
+        
+    }
 </script>

@@ -34,4 +34,6 @@ table tr, td {
 
 }
 
-.
+.show_result{
+	cursor: pointer;
+}

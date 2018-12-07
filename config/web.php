@@ -50,10 +50,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
             ],
-        ], 
-        'excel'=>[
-              'class'=>'app\extensions\phpexcel\XPHPExcel',
-        ],        
+        ],                 
     ], 
     'defaultRoute' => 'data-model/index',
     'params' => $params,

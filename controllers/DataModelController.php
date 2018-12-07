@@ -160,14 +160,17 @@ class DataModelController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionAPI($id){
+    public function actionGetxls(){
+
+        $id = Yii::$app->request->post('id');
+
         $model = $this->findModel($id);
 
         $dm = new DataModel();
      
         $xls_data = $dm->readFileExcel($model->pathFileOutput);        
 
-        return $xls_data;
+        return json_encode($xls_data);
     }
 
     /**

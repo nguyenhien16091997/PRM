@@ -29,12 +29,6 @@ class AppAsset extends AssetBundle
 
     ];
     public $js = [       
-
-        //metronic demo 6, version 5.3
-        //'vendor/base/vendors.bundle.js',
-       // 'demo/demo6/base/scripts.bundle.js',
-       // 'vendor/custom/fullcalendar/fullcalendar.bundle.js',
-        //'app/js/dashboard.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
