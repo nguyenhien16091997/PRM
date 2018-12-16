@@ -54,14 +54,36 @@ $config = [
     ], 
     'defaultRoute' => 'data-model/index',
     'params' => $params,
+    // Add this to get debug and gii to work
+    'modules' => [
+        'gii' => [
+            'class' => 'yii\gii\Module',
+             // permits any and all IPs
+             // you should probably restrict this
+            'allowedIPs' => ['127.0.0.1']
+        ],
+        'debug' => [
+            'class' => 'yii\debug\Module',
+             // permits any and all IPs
+             // you should probably restrict this
+            'allowedIPs' => ['127.0.0.1']
+        ]
+    ]
 ];
 
 if (YII_ENV_DEV) {
+    $config['bootstrap'][] = 'debug';
+    $config['modules']['debug'] = [
+        'class' => 'yii\gii\Module',
+        // uncomment the following to add your IP if you are not connecting from localhost.
+        'allowedIPs' => ['*'],
+    ];
+
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => ['*'],
     ];
 }
 

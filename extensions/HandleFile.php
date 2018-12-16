@@ -38,7 +38,7 @@ class handleFile extends BaseObject
         }
 
         $DirFile = __DIR__.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'uploadFile.py';
-      
+       
         $shell = sprintf('py %s %s %s 2>&1', $DirFile, $src, $dst);
      
         $console = shell_exec($shell);

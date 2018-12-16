@@ -113,7 +113,7 @@ def RemoveRecords_N(_N, i):
 	return np.delete(_N_out, 0, axis=0)
 
 def CaculateLapace(n_c, n_total, k):
-	return (n_c+1)/(n_total+k)
+	return ((n_c+1)/(n_total+k))*100
 def specifyPN():
 	#init
 	L = np.array([[0,0,0]])
@@ -144,9 +144,6 @@ def specifyPN():
 		# negatives
 		N = array_core[np.where(array_core[:,-1]!=c)]
 		
-		#PN array
-		PN = GenneratePN(ATT, P, N)
-		
 		#size
 		size_ar_core = np.size(array_core,0) #15
 		size_P		 = np.size(P,0) #6
@@ -161,6 +158,9 @@ def specifyPN():
 		#Total Weight Threshold (TWT)	
 		TOTAL_WEIGHT_FACTOR = 0.05
 		TWT = WP*TOTAL_WEIGHT_FACTOR
+
+		#PN array
+		PN = GenneratePN(ATT, P, N)
 
 		A = CaculateA(ATT, PN, WP, WN)
 	
