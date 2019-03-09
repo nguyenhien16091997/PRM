@@ -29,15 +29,18 @@ AppAsset::register($this);
         <link rel="shortcut icon" href="/img/if_bar-chart_1055117.ico" />
         <!--begin::Web font -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!--begin::Web font -->
         <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
         <script>
-          WebFont.load({
+            WebFont.load({
             google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
             active: function() {
                 sessionStorage.fonts = true;
             }
           });
         </script>
+
+        <!--end::Web font -->
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>

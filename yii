@@ -8,6 +8,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
+ini_set('max_execution_time', 300);
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 

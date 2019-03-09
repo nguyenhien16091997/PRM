@@ -68,13 +68,15 @@ def CaculateA(ATT, PN, WP, WN):
 def ReduceWeightP(P,item):	
 	for i in range(0, np.size(P, axis=0)):	
 		if np.in1d(item, P[i])[0] == True :
-			P[i][-1] = P[i][-1].astype(np.float)*(1/3)
+			# P[i][-1] = P[i][-1].astype(np.float)*(1/3)
+			P[i][-1] = P[i][-1]*(1/3)
 	return P
 
 def ReduceWeightN(N,item):	
 	for i in range(0, np.size(N, axis=0)):	
 		if np.in1d(item, N[i])[0] == True :
-			N[i][-1] = N[i][-1].astype(np.float)*(1/3)
+			# N[i][-1] = N[i][-1].astype(np.float)*(1/3)
+			N[i][-1] = N[i][-1]*(1/3)
 	return N
 
 def GenneratePN(ATT, P, N):	
@@ -85,10 +87,12 @@ def GenneratePN(ATT, P, N):
 		wp = 0
 		wn = 0
 		for i in p_location[0] :
-			wp = wp + P[:,-1][i].astype(np.float)
+			# wp = wp + P[:,-1][i].astype(np.float)
+			wp = wp + P[:,-1][i]
 
 		for j in n_location[0] :
-			wn = wn + N[:,-1][j].astype(np.float)
+			# wn = wn + N[:,-1][j].astype(np.float)
+			wn = wn + N[:,-1][j]
 		
 		PN = np.append(PN, [[wp, wn]], axis=0)			
 	PN = np.delete(PN, (0), axis=0)
@@ -123,7 +127,7 @@ def specifyPN():
 	df = arrayData()
 	
 	array= df.values
-	
+
 	array_core= EncryptionArray(array.copy())
 	
 	#Attribute
@@ -152,8 +156,10 @@ def specifyPN():
 		#set total weight P & N
 		P = np.c_[P, np.ones(size_P)]	
 		N = np.c_[N, np.ones(size_N)]		
-		WP		     = np.sum(P[:,-1].astype(np.float))		
-		WN		     = np.sum(N[:,-1].astype(np.float))
+		# WP		     = np.sum(P[:,-1].astype(np.float))		
+		# WN		     = np.sum(N[:,-1].astype(np.float))
+		WP		     = np.sum(P[:,-1])		
+		WN		     = np.sum(N[:,-1])
 
 		#Total Weight Threshold (TWT)	
 		TOTAL_WEIGHT_FACTOR = 0.05
@@ -174,7 +180,7 @@ def specifyPN():
 			r = np.array([[0, 0]])
 			
 			_NSizePre = 0
-			while True:				
+			while True:		
 
 				#get location best gain
 				best_gain = np.where(_A[:,-1] == np.amax(_A[:,-1]))
@@ -193,8 +199,10 @@ def specifyPN():
 				if (_N.size == 0) :
 					break
 
-				_WP = np.sum(_P[:,-1].astype(np.float))
-				_WN = np.sum(_N[:,-1].astype(np.float))
+				# _WP = np.sum(_P[:,-1].astype(np.float))
+				# _WN = np.sum(_N[:,-1].astype(np.float))
+				_WP = np.sum(_P[:,-1])
+				_WN = np.sum(_N[:,-1])
 				
 				_A = CaculateA(ATT, _PN, _WP, _WN)			
 			
@@ -219,8 +227,11 @@ def specifyPN():
 
 			PN = GenneratePN(ATT, P, N)				
 			A = CaculateA(ATT, PN, WP, WN)	
-			WP = np.sum(P[:,-1].astype(np.float))
-			WN = np.sum(N[:,-1].astype(np.float))
+			# WP = np.sum(P[:,-1].astype(np.float))
+			# WN = np.sum(N[:,-1].astype(np.float))
+			WP = np.sum(P[:,-1])
+			WN = np.sum(N[:,-1])
+
 	L = np.delete(L, 0, axis=0)
 	L = np.unique(L, axis=0)
 
@@ -241,7 +252,7 @@ def specifyPN():
 		'Name': names,
 		'Value': val,
 		'Class': clas,
-		'Lapace': Lap
+		'Laplace': Lap
 	}
 
 	# df = pd.DataFrame(d,columns=['Name','Value','Class','Lapace'])
@@ -264,5 +275,5 @@ def main_cli():
 	writer.save()
 
 if __name__ == '__main__':
-	main_cli()
+	main_cli()	
 	print('Conversion complete!')
