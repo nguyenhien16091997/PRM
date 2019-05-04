@@ -106,13 +106,15 @@ class DataModelController extends Controller
             // Determine path Input and Output
             $model->pathFileInput   =   Yii::$app->basePath.DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'fileInput'.DIRECTORY_SEPARATOR.$fileName;
             $model->pathFileOutput  =   Yii::$app->basePath.DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'fileOutput'.DIRECTORY_SEPARATOR.$fileNameOut;   
-
+            $startTime = time();
             $model->create_at   =   $datetime;
             $model->update_at   =   $datetime;    
-   
-            if( $this->upload($model->uploadFile, $model->pathFileInput, $model->pathFileOutput)){
+            $resultUploadFile = $this->upload($model->uploadFile, $model->pathFileInput, $model->pathFileOutput);
+            $endTime =time();
+            if( $resultUploadFile ){
                 $model->pathFileInput = DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'fileInput'.DIRECTORY_SEPARATOR.$fileName;
                 $model->pathFileOutput = DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'fileOutput'.DIRECTORY_SEPARATOR.$fileNameOut; 
+                $model->run_time = $endTime -$startTime;
                 if($model->save()){
                     Yii::$app->session->setFlash('success', "User created successfully.");
                     return $this->redirect(['view', 'id' => $model->id]);

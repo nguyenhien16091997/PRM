@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 <?php endif; ?>
 <div class="row">
-        <div class="col-xl-8">
+        <div class="col-xl-12">
             <div class="m-portlet m-portlet--mobile ">
                 <div class="m-portlet__head">
                     <div class="m-portlet__head-caption">
@@ -62,6 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'pathFileInput',
                                 'pathFileOutput',
                                 'userName',
+                                'run_time',
                                 'note',
                                 'create_at',
                                 'update_at',
@@ -74,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         </div>    
-        <div class="col-xl-4">
+        <div class="col-xl-12">
             <!--begin:: Widgets/Audit Log-->
             <div class="m-portlet m-portlet--full-height ">
                 <div class="m-portlet__head">

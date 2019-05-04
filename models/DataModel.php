@@ -56,6 +56,7 @@ class DataModel extends \yii\db\ActiveRecord
             'pathFileOutput' => 'Path File Output',
             'userName' => 'User Name',
             'note' => 'Note',
+            'run_time' => 'Run Time',
             'create_at' => 'Create At',
             'update_at' => 'Update At',
             'update_end_by' => 'Update End By',
