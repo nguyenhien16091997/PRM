@@ -17,6 +17,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'uploadFile')->fileInput([ 'required'=>'required'])->label('Choose file') ?>
     <?= $form->field($model, 'choseColumn')->dropDownList(['prompt'=>'Select Option'] ) ?>
+
+    <?= $form->field($model, 'choseTypeUpdate')->dropDownList(['1'=>'Loại bỏ missing', '2'=>'Thay thế missing bằng value 0', '3'=>'Thay thế bằng số xuất hiện nhiều', '4'=>'Thay thế bằng giá trị lân cận'], ['multiple'=>'multiple'] ) ?>
     
     <?= $form->field($model, 'note')->textInput(['maxlength' => true]) ?>
 

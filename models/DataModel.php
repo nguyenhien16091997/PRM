@@ -10,8 +10,6 @@ use Yii;
  *
  * @property int $id
  * @property string $name
- * @property string $pathFileInput
- * @property string $pathFileOutput
  * @property string $userName
  * @property string $note
  * @property string $create_at
@@ -22,6 +20,7 @@ class DataModel extends \yii\db\ActiveRecord
 {
     public $uploadFile;
     public $choseColumn;
+    public $choseTypeUpdate;
     /**
      * {@inheritdoc}
      */
@@ -37,7 +36,7 @@ class DataModel extends \yii\db\ActiveRecord
     {
         return [
             [['file_name','create_at', 'update_at', 'update_end_by'], 'safe'],
-            [['name', 'pathFileInput', 'pathFileOutput', 'userName', 'note'], 'string', 'max' => 255],
+            [['name', 'userName', 'note'], 'string', 'max' => 255],
             [['name'], 'unique'],
             [['name'], 'required']
         ];
@@ -52,8 +51,6 @@ class DataModel extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'file_name'=>'File Name',
-            'pathFileInput' => 'Path File Input',
-            'pathFileOutput' => 'Path File Output',
             'userName' => 'User Name',
             'note' => 'Note',
             'run_time' => 'Run Time',

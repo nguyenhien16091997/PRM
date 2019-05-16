@@ -59,8 +59,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'id',
                                 'name',
                                 'file_name',
-                                'pathFileInput',
-                                'pathFileOutput',
                                 'userName',
                                 'run_time',
                                 'note',
@@ -75,6 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         </div>    
+        <?php foreach ($arrXls_data as $xls_data) { ?>
         <div class="col-xl-12">
             <!--begin:: Widgets/Audit Log-->
             <div class="m-portlet m-portlet--full-height ">
@@ -82,7 +81,29 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="m-portlet__head-caption">
                         <div class="m-portlet__head-title">                            
                             <h3 class="m-portlet__head-text">
-                                <?= count($xls_data)-1?> Result 
+                                <?php
+                                    switch ($xls_data['type']) {
+                                        case '1':
+                                           echo "Loại bỏ missing </br>";
+                                            break;
+                                        case '2':
+                                            echo "Thay thế missing bằng value 0 </br>";
+                                            break;
+                                        case '3':
+                                            echo "Thay thế bằng số xuất hiện nhiều </br>";
+                                            break;
+                                        case '4':
+                                            echo "Thay thế bằng giá trị lân cận </br>";
+                                            break;
+
+                                        default:
+                                            # code...
+                                            break;
+                                    }
+                                ?>
+                                Time Run File: <?= $xls_data['time'] ?></br>
+                                <?= count($xls_data['file'])-1?> Result 
+                            
                             </h3>
                         </div>
                     </div>                                       
@@ -94,7 +115,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="m-list-timeline m-list-timeline--skin-light">
                                     <div class="m-list-timeline__items">
                                         <?php                                           
-                                            foreach ($xls_data as $item) {
+                                            foreach ($xls_data['file'] as $item) {
                                                 echo ('
                                                 <div class="m-list-timeline__item">
                                                     <span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
@@ -124,6 +145,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
             <!--end:: Widgets/Audit Log-->
-        </div>                        
+        </div>
+        <?php  } ?>                        
     </div>
 
