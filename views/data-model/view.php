@@ -102,6 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     }
                                 ?>
                                 Time Run File: <?= $xls_data['time'] ?></br>
+                                Memory Run File: <?= $xls_data['memory'] ?></br>
                                 <?= count($xls_data['file'])-1?> Result 
                             
                             </h3>

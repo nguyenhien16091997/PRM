@@ -56,16 +56,16 @@ class DataModelController extends Controller
             case '1':
                 foreach ($arrP as $key => $value) {
                     foreach ($value as $key2 => $value2) {
-                        if($value2 == null){
+                        if($value2 === null){
                             unset($arrP[$key]);
                         }
                     }
-                }                
+                }
                 break;
             case '2':
                 foreach ($arrP as $key => $value) {
                     foreach ($value as $key2 => $value2) {
-                        if($value2 == null){
+                        if($value2 === null){
                             $arrP[$key][$key2] = 0;
                         }
                     }
@@ -74,7 +74,7 @@ class DataModelController extends Controller
             case '3':
                 foreach ($arrP as $key => $value) {
                     foreach ($value as $key2 => $value2) {
-                        if($value2 == null){
+                        if($value2 === null){
 
                             $arrP[$key][$key2] = $this->getRowRepeatMost($arrP, $key2, count($arrP));
                         }
@@ -84,7 +84,7 @@ class DataModelController extends Controller
             case '4':
                 foreach ($arrP as $key => $value) {
                     foreach ($value as $key2 => $value2) {
-                        if($value2 == null){
+                        if($value2 === null){
                             if($key == 2)
                             {
                                 $arrP[$key][$key2] = $arrP[$key + 1][$key2];
@@ -189,6 +189,7 @@ class DataModelController extends Controller
             $arrXls_data[$key]['time'] = $value['type_upload'];
             $fileName1 = explode( '.', $value['pathFileOutput'])[0];
             $arrXls_data[$key]['type'] = substr($fileName1,-1);
+            $arrXls_data[$key]['memory'] = $value['memory_upload'];
         }
 
         return $this->render('view', [
@@ -234,19 +235,17 @@ class DataModelController extends Controller
             $model->update_at   =   $datetime; 
 
             $uploadSuccess = true;
-            foreach ($arrChose as $key => $value) {
-                $startTime = time();
-                $this->upload($model->uploadFile, $pathFileInput, $pathFileOutput, $value);
-                $endTime =time();
-                $arrayTime[$value] = $endTime - $startTime;
-            }
-
-            
-            $model->run_time = $endTime - $startTime;
-            if( $uploadSuccess){
-                if($model->save()){
-                    
-                    foreach ($arrChose as $key => $value) {
+            if($model->save()){
+                foreach ($arrChose as $key => $value) {
+                    $startTime = time();
+                    $startMemory = memory_get_usage();
+                    $uploadSuccess = $this->upload($model->uploadFile, $pathFileInput, $pathFileOutput, $value);
+                    $endMemory = memory_get_usage();
+                    $endTime =time();
+                    $arrayTime[$value] = $endTime - $startTime;
+                    $model->run_time = $endTime - $startTime;
+                    if( $uploadSuccess){
+                        
                         $pathFileInputsModel = new PathFileInput();
                         $pathFileOutputsModel = new PathFileOutput();
                         $pathFileInputsModel->data_model_id = $model->id;
@@ -257,13 +256,17 @@ class DataModelController extends Controller
                         $pathFileInputsModel->save(false);
 
                         $pathFileOutputsModel->pathFileOutput = DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'fileOutput'.DIRECTORY_SEPARATOR.explode(".",$fileName)[0]."_".$value.".xlsx";
+                        $pathFileOutputsModel->memory_upload = $endMemory - $startMemory;
                         $pathFileOutputsModel->save(false);
                     }
-                    Yii::$app->session->setFlash('success', "User created successfully.");
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }  
-
+                }
             }
+            
+            Yii::$app->session->setFlash('success', "User created successfully.");
+            return $this->redirect(['view', 'id' => $model->id]);
+
+            
+            
             
                
         }

@@ -33,7 +33,7 @@ class PathFileOutput extends \yii\db\ActiveRecord
     {
         return [
             [['create_at', 'update_at', 'update_end_by'], 'safe'],
-            [['data_model_id', 'pathFileOutput'], 'string', 'max' => 255],
+            [['data_model_id', 'pathFileOutput', 'memory_upload'], 'string', 'max' => 255],
         ];
     }
 
