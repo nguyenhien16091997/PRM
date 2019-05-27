@@ -12,7 +12,7 @@ class m190526_082152_add_col_memory_to_tbl_pathFileOutput extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('path_file_output', 'memory_upload', VARCHAR(255));
+        $this->addColumn('path_file_output', 'memory_upload', 'VARCHAR(255)');
     }
 
     /**
