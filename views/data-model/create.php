@@ -10,7 +10,10 @@ $this->title = 'Create Data Model';
 $this->params['breadcrumbs'][] = ['label' => 'Data Models', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+    <!-- <div class="col-xl-8" style="position:fixed; z-index: 999; text-align: center;top: 50%">
+            bbbbbbbbbbbbbbbbb
 
+        </div> -->
     <div class="row">
         <div class="col-xl-8">
             <div class="m-portlet m-portlet--mobile ">
@@ -35,6 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     <!--end: Datatable -->
                 </div>
             </div>
-        </div>                            
+        </div>                     
     </div>
 

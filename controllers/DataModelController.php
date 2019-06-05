@@ -174,6 +174,7 @@ class DataModelController extends Controller
      */
     public function actionView($id)
     {
+        
         $model = $this->findModel($id);
 
         $dm = new DataModel();
@@ -237,11 +238,11 @@ class DataModelController extends Controller
             $uploadSuccess = true;
             if($model->save()){
                 foreach ($arrChose as $key => $value) {
-                    $startTime = time();
+                    $startTime = microtime(true);
                     $startMemory = memory_get_usage();
                     $uploadSuccess = $this->upload($model->uploadFile, $pathFileInput, $pathFileOutput, $value);
                     $endMemory = memory_get_usage();
-                    $endTime =time();
+                    $endTime = microtime(true);
                     $arrayTime[$value] = $endTime - $startTime;
                     $model->run_time = $endTime - $startTime;
                     if( $uploadSuccess){

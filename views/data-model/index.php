@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <div class="row">
-        <div class="col-xl-8">
+        <div class="col-xl-12">
             <div class="m-portlet m-portlet--mobile ">
                 <div class="m-portlet__head">
                     <div class="m-portlet__head-caption">
@@ -62,19 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             }
                                         ]
                                 ],
-                                [
-                                    'class'    => 'yii\grid\ActionColumn',
-                                    'template' => '{predictive}',
-                                    'buttons'  => [
-                                          'predictive' => function ($url, $data) {                       
-                                                return Html::tag('span', Html::encode(''), [
-                                                    'class'=>'glyphicon glyphicon-arrow-right show_result',
-                                                    'id'=>'show_result_'.$data->id,       
-                                                    'onClick'=>'show('.$data->id.')'                                             
-                                                ]);                             
-                                            }
-                                        ]
-                                ]
+                            
                             ],
                         ]); ?>
                     </div>
@@ -82,56 +70,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         </div>
-        <div class="col-xl-4">
-            <!--begin:: Widgets/Audit Log-->
-            <div class="m-portlet m-portlet--full-height ">
-                <div class="m-portlet__head">
-                    <div class="m-portlet__head-caption">
-                        <div class="m-portlet__head-title">                            
-                            <h3 class="m-portlet__head-text" id ="count_result">
-                                 
-                            </h3>
-                        </div>
-                    </div>                                       
-                </div>
-                <div class="m-portlet__body">
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="m_widget4_tab1_content">
-                            <div class="m-scrollable" data-scrollable="true" data-max-height="400" style=" overflow: hidden;">
-                                <div class="m-list-timeline m-list-timeline--skin-light">
-                                    <div class="m-list-timeline__items" id="list-preditive">
-                                                                                                      
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                       
-                    </div>
-                </div>
-            </div>
-            <!--end:: Widgets/Audit Log-->
-        </div>
+        
     </div>
 <script type="text/javascript">
     var k = -1;
     showResult(null);
-    function show(key){
-        $('#show_result_'+key).addClass("show_result_last");
-        $('#show_result_'+k).removeClass("show_result_last");
-        k=key;
-        $.ajax({
-            type: 'POST',
-            url: '<?php echo Yii::$app->urlManager->createAbsoluteUrl('data-model/getxls'); ?>',
-            data : {'id' : key},
-            success:function(data){                        
-                $xls_data=JSON.parse(data);
-                showResult(Object.entries($xls_data));
-            },
-            error: function(data) {                        
-                alert("Error occured. Please try again.");
-            }
-        });
-    }
 
      function showResult(xls_data){
         if(xls_data == null){
