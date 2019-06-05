@@ -26,7 +26,7 @@ AppAsset::register($this);
         <meta name="description" content="Latest updates and statistic charts">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="shortcut icon" href="/img/if_bar-chart_1055117.ico" />
+        <link rel="shortcut icon" href="img/if_bar-chart_1055117.ico" />
         <!--begin::Web font -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <!--begin::Web font -->
@@ -60,7 +60,7 @@ AppAsset::register($this);
                             <div class="m-stack m-stack--ver m-stack--general">
                                 <div class="m-stack__item m-stack__item--middle m-brand__logo">
                                     <a href="/data-model" class="m-brand__logo-wrapper">
-                                        <img alt="" src="/img/logo/bar-chart.png"/>
+                                        <img alt="" src="img/logo/bar-chart.png"/>
                                     </a>
                                     <h3 class="m-header__title">
                                         Apps
