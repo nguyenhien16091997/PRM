@@ -22,11 +22,11 @@ table tr, td {
     overflow: auto;
 }
 .nameE{
-	width: 300px !important;
+	width: 200px !important;
 	margin-right: 2px
 }
 .valueE{
-	width: 300px !important;
+	width: 100px !important;
 	margin-right: 2px
 }
 .lapaceE{
@@ -43,4 +43,18 @@ table tr, td {
 	font-size: x-large;
 	-webkit-transition: width 0.1s, height 0.1s; /* Safari */
   	transition: width 0.1s, height 0.1s;
+}
+
+.m-portlet.m-portlet--full-height .m-portlet__body{
+	height: 500px !important;
+	overflow-y: scroll
+} 
+
+.m-portlet .m-portlet__head .m-portlet__head-caption .m-portlet__head-title{
+	margin-top: 10px;
+	display: grid !important
+}
+
+h3.m-portlet__head-text{
+	color: red !important
 }
