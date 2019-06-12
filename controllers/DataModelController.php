@@ -238,11 +238,11 @@ class DataModelController extends Controller
             $uploadSuccess = true;
             if($model->save()){
                 foreach ($arrChose as $key => $value) {
-                    $startTime = microtime(true);
+                    $startTime = time();
                     $startMemory = memory_get_usage();
                     $uploadSuccess = $this->upload($model->uploadFile, $pathFileInput, $pathFileOutput, $value);
                     $endMemory = memory_get_usage();
-                    $endTime = microtime(true);
+                    $endTime = time();
                     $arrayTime[$value] = $endTime - $startTime;
                     $model->run_time = $endTime - $startTime;
                     if( $uploadSuccess){
