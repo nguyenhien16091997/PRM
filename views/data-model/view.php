@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>    
         <?php foreach ($arrXls_data as $xls_data) { ?>
-        <div class="col-xl-12">
+        <div class="col-xl-6">
             <!--begin:: Widgets/Audit Log-->
             <div class="m-portlet m-portlet--full-height ">
                 <div class="m-portlet__head">
@@ -84,13 +84,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php
                                     switch ($xls_data['type']) {
                                         case '1':
-                                           echo "Loại bỏ missing </br>";
+                                           echo "Loại bỏ những dòng có giá trị trống</br>";
                                             break;
                                         case '2':
-                                            echo "Thay thế missing bằng value 0 </br>";
+                                            echo "Thay thế bằng số 0 </br>";
                                             break;
                                         case '3':
-                                            echo "Thay thế bằng số xuất hiện nhiều </br>";
+                                            echo "Điền giá trị xuất hiện nhiều nhất</br>";
                                             break;
                                         case '4':
                                             echo "Thay thế bằng giá trị lân cận </br>";
@@ -101,11 +101,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                             break;
                                     }
                                 ?>
-                                Time Run File: <?= $xls_data['time'] ?></br>
-                                Memory Run File: <?= $xls_data['memory'] ?></br>
-                                <?= count($xls_data['file'])-1?> Result 
+                                </h3>
+                                <div>
+                                    <span>Time Run File:</span> 
+                                    <span><?= $xls_data['time'] ?></span>
+                                </div>
+                                <div>
+                                    <span>Memory Run File:</span> 
+                                    <span><?= $xls_data['memory'] ?></span>
+                                </div>
+                                <?= count($xls_data['file'])-1?> Result                            
                             
-                            </h3>
                         </div>
                     </div>                                       
                 </div>
