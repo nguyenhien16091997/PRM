@@ -263,6 +263,10 @@ def main_cli():
 
 	# write file to excel
 	args = parsers_in()
+	# Create a workbook
+	workbook = xlsxwriter.Workbook(args.output_file)
+	worksheet = workbook.add_worksheet()
+	workbook.close()
 	
 	# write to new file excel above
 	df = specifyPN()
