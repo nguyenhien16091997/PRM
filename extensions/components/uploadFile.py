@@ -4,7 +4,6 @@ import argparse
 from modules import readCSV as readCSV
 from modules import readExcel as readExcel 
 import math as m
-from openpyxl import Workbook
 import xlsxwriter
 	
 def parsers_in():
@@ -242,7 +241,8 @@ def specifyPN():
 	Lap = []
 
 	for l in L :
-		if l[2] > 0.5 : 
+		print('l2', l[2])
+		if l[2] > 50 : 
 			names.append(name_cols[l[1].astype(int)])
 			val.append(array[l[0].astype(int), l[1].astype(int)])
 			clas.append(array[l[0].astype(int), -1])
@@ -263,10 +263,6 @@ def main_cli():
 
 	# write file to excel
 	args = parsers_in()
-	# Create a workbook
-	workbook = xlsxwriter.Workbook(args.output_file)
-	worksheet = workbook.add_worksheet()
-	workbook.close()
 	
 	# write to new file excel above
 	df = specifyPN()
