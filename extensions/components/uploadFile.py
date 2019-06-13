@@ -1,10 +1,22 @@
 import numpy as np
 import pandas as pd
 import argparse
-from modules import readCSV as readCSV
-from modules import readExcel as readExcel 
 import math as m
 import xlsxwriter
+
+def GetTableIntoArrayCSV(pathInput, pathOutput):
+	# Get dataframe
+	df = pd.read_excel(pathInput)
+	
+	#return 2-dimensional array
+	return df
+
+def GetTableIntoArrayEXCEL(pathInput, pathOutput):
+	# Get dataframe
+	df = pd.read_csv(pathInput)
+	
+	#return 2-dimensional array
+	return df
 	
 def parsers_in():
 	parser = argparse.ArgumentParser(description='Compress a file using various algorithms')
@@ -26,9 +38,9 @@ def arrayData():
 
 	#get array type numpy
 	if typeFile == 'csv':
-		array= readCSV.GetTableIntoArray(args.input_file, args.output_file)
+		array= pd.read_csv(args.input_file)
 	elif typeFile == 'xlsx' or typeFile == 'xls' or typeFile == 'xlsm':
-		array = readExcel.GetTableIntoArray(args.input_file, args.output_file)		
+		array = pd.read_excel(args.input_file)	
 	else:
 		array=''
 	return array
@@ -139,7 +151,7 @@ def specifyPN():
 
 	#generate an empty global attributes array A
 	A = np.array([[0, 0]])
-
+	
 	for c in C:		
 		# postitives
 		P = array_core[np.where(array_core[:,-1]==c)]		
@@ -241,7 +253,6 @@ def specifyPN():
 	Lap = []
 
 	for l in L :
-		print('l2', l[2])
 		if l[2] > 50 : 
 			names.append(name_cols[l[1].astype(int)])
 			val.append(array[l[0].astype(int), l[1].astype(int)])
