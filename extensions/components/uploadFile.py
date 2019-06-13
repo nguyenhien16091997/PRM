@@ -1,7 +1,7 @@
 import numpy 
 import pandas 
 import argparse
-import math as m
+import math 
 import xlsxwriter
 	
 def parsers_in():
@@ -41,7 +41,7 @@ def EncryptionArray(array):
 	return array
 
 def CaculateGain(WP, WN ,_WP, _WN):	
-	gain = _WP*(m.log(_WP/(_WP+(_WP+_WN)))-m.log(WP/(WP+(WP+WN))))
+	gain = _WP*(math.log(_WP/(_WP+(_WP+_WN)))-math.log(WP/(WP+(WP+WN))))
 	return gain
 
 def CaculateA(ATT, PN, WP, WN):
